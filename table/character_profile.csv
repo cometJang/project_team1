@@ -1,0 +1,11 @@
+performer_id,name,gender,birth_year,mbti,mbti_t_f,mbti_j_p,x_partner,relationship_months,breakup_months,entry_episode
+1,성해은,F,1994,INFP,F,P,정규민,76,15,5
+2,정규민,M,1994,ENTJ,T,J,성해은,76,15,1
+3,이나연,F,1996,ESFP,F,P,남희두,31,5,1
+4,남희두,M,1997,INTP,T,P,이나연,31,5,6
+5,박원빈,M,1997,ENFJ,F,J,김지수,16,40,1
+6,김지수,F,1997,ENFP,F,P,박원빈,16,40,1
+7,김태이,M,1996,INTJ,T,J,이지연,6,18,1
+8,이지연,F,2001,ESTP,T,P,김태이,6,18,1
+9,박나언,F,1998,INTP,T,P,정현규,14,30,13
+10,정현규,M,1998,ESTJ,T,J,박나언,14,30,15
