@@ -1,15 +1,13 @@
-
-데이터 전처리
-
-
+# 데이터 전처리
 import pandas as pd
 from bs4 import BeautifulSoup
+
 # CSV 읽기 (큰따옴표 안의 , 무시)
 df = pd.read_csv(r"C:\Users\최미숙\Downloads\naver_article_250822.csv",
-                 sep=",", encoding="utf-8", quotechar='"', header=None)
+                sep=",", encoding="utf-8", quotechar='"', header=None)
 # 컬럼명 지정
 df.columns = ['naver_article_id', 'writer_nickname', 'released_at', 'view_count',
-              'title', 'like_count', 'comment_count', 'comments', 'content']
+            'title', 'like_count', 'comment_count', 'comments', 'content']
 # content에서 텍스트만 추출
 def extract_text(html):
     if pd.isna(html):
@@ -32,8 +30,8 @@ df.drop(columns=['content'], inplace=True)
 print(df.head())
 # CSV 저장
 df.to_csv("cafe_posts_clean.csv", index=False, encoding="utf-8-sig")
-     
-데이터 불러오기
+    
+# 데이터 불러오기
 
 
 import pandas as pd
@@ -46,15 +44,15 @@ df = pd.read_csv(path)
 
 print(df.head())
 
-     
-API 키
+    
+# API 키
 
 
 import os
 
 os.environ["GEMINI_API_KEY"] = "Apikey***"
-     
-LLM
+    
+# LLM
 
 
 # ====================================
@@ -135,11 +133,18 @@ sys.path.append("/content/drive/MyDrive/스파르타 파이썬/7조")
 from data3 import data3   # 브랜드/라인 사전 불러오기
 
 def _normalize(s: str) -> str:
+    """
+    브랜드/라인명 매칭을 위한 텍스트 정규화 함수.
+    - 유니코드 NFKC 정규화 (한글 자모 결합 등 처리)
+    - 소문자 변환
+    - 한글, 영문, 숫자 제외 모든 특수문자 및 공백 제거
+    """
     if not s:
         return ""
+    # 유니코드 정규화 및 소문자 변환
     s = unicodedata.normalize("NFKC", s).lower()
-    s = re.sub(r"[\s
-{}·,]", "", s)  # 괄호, 공백, 특수문자 제거
+    # 한글(가-힣), 영문(a-z), 숫자(0-9)를 제외한 모든 문자(공백, 특수문자 등) 제거
+    s = re.sub(r"[^a-z0-9가-힣]", "", s)
     return s
 
 def normalize_brand_line(text: str, data3: list):
@@ -153,8 +158,7 @@ def normalize_brand_line(text: str, data3: list):
 
         for syn in line_syns:
             if _normalize(syn) in text_norm:
-                cleaned = re.sub(r"
-", "", line).strip() if line else None
+                cleaned = re.sub(r"[\r\n]", "", line).strip() if line else None
                 return brand, cleaned if cleaned else line
 
     # 2) 브랜드 매칭
@@ -198,14 +202,14 @@ def build_classifier():
     )
 
     prompt = ChatPromptTemplate.from_messages([
-        ("system",
-         "너는 감성 및 카테고리 분류기야. "
-         "category는 반드시 '디자인, 가격, 만족도, 추천, CS, 기타' 중 하나에 "
-         "'_긍정', '_부정', '_중립' 접미사가 붙은 형태여야 한다. "
-         "sentiment는 positive/negative/neutral 중 하나. "
-         "text_type은 고민/추천형, 정보탐색형, 거래형, 후기형, 감성표현형, 기타 중 하나여야 한다."),
-        ("user", "{text}")
-    ])
+    ("system",
+        "너는 감성 및 카테고리 분류기야. "
+        "category는 반드시 '디자인, 가격, 만족도, 추천, CS, 기타' 중 하나에 "
+        "'_긍정', '_부정', '_중립' 접미사가 붙은 형태여야 한다. "
+        "sentiment는 positive/negative/neutral 중 하나. "
+        "text_type은 고민/추천형, 정보탐색형, 거래형, 후기형, 감성표현형, 기타 중 하나여야 한다."),
+    ("user", "{text}")
+])
 
     structured_llm = llm.with_structured_output(schema=ItemFull)
 
@@ -233,9 +237,9 @@ def build_splitter():
     )
     prompt = ChatPromptTemplate.from_messages([
         ("system",
-         "문장을 브랜드/라인별 의견 단위로 나누어라. "
-         "출력은 {{ \"segments\": [...] }} 형태의 JSON 객체여야 한다."),
-        ("user", "{text}")
+        "문장을 브랜드/라인별 의견 단위로 나누어라. "
+        "출력은 {{ \"segments\": [...] }} 형태의 JSON 객체여야 한다."),
+    ("user", "{text}")
     ])
     return prompt | llm.with_structured_output(schema=Segments)
 
@@ -347,5 +351,3 @@ for start in tqdm(range(0, len(target_df), chunksize), desc="샘플 처리 중")
     display(final_df.head(3))
 
 print("처리 완료")
-
-     
