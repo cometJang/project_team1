@@ -17,7 +17,7 @@ from langchain_core.prompts import ChatPromptTemplate
 # 1. 환경 설정 및 API 키 (사용자 환경에 맞춰 설정 필요)
 # ====================================
 # 실제 실행 시에는 환경 변수나 .env 파일을 통해 설정하세요.
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "AIzaSyDKBnPv37oJ2F3_79eSmLhRcvrAWksbe1k")
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", " ")
 
 # ====================================
 # 2. 데이터 구조 정의 (Pydantic)
