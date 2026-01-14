@@ -1,0 +1,84 @@
+############################
+# 🔐 Secrets & Environment
+############################
+.env
+.env.*
+*.key
+*.pem
+*.crt
+
+############################
+# 🐍 Python
+############################
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+############################
+# 📦 Virtual Environments
+############################
+venv/
+.venv/
+env/
+ENV/
+
+############################
+# 📓 Jupyter / Colab
+############################
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+
+############################
+# 🖥 OS-specific files
+############################
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+
+############################
+# 🧰 IDE / Editor
+############################
+# VSCode / Cursor
+.vscode/
+.history/
+
+# PyCharm
+.idea/
+
+############################
+# 🗂 Temporary / Backup
+############################
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+############################
+# 🧠 Model / Cache
+############################
+.cache/
+.cache/**
+*.onnx
+*.h5
+*.ckpt
+
+############################
+# 📥 Downloaded / External
+############################
+downloads/
+data/raw/
+data/tmp/
