@@ -1,0 +1,25 @@
+{
+  "summary_total": {
+    "positive": 6,
+    "mention_x": 3,
+    "mention_other": 45,
+    "negative": 9,
+    "initiative": 4
+  },
+  "by_target": {
+    "희두": {
+      "positive": 4,
+      "mention_x": 2,
+      "mention_other": 16,
+      "negative": 4,
+      "initiative": 1
+    },
+    "나연": {
+      "positive": 4,
+      "mention_x": 3,
+      "mention_other": 35,
+      "negative": 5,
+      "initiative": 3
+    }
+  }
+}
