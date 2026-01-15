@@ -1,52 +1,43 @@
 {
   "summary": {
-    "positive": 140,
-    "mention_x": 35,
-    "mention_other": 64,
-    "negative": 73,
+    "positive": 62,
+    "mention_x": 34,
+    "mention_other": 117,
+    "negative": 71,
     "initiative": 23
   },
   "by_speaker": {
-    "UNKNOWN": {
-      "positive": 2,
-      "mention_x": 2,
-      "mention_other": 4
-    },
-    "SPEAKER_2": {
-      "positive": 31,
-      "mention_other": 16,
-      "mention_x": 10,
-      "negative": 24,
-      "initiative": 6
+    "SPEAKER_3": {
+      "positive": 44,
+      "mention_x": 18,
+      "mention_other": 61,
+      "negative": 42,
+      "initiative": 13
     },
     "SPEAKER_4": {
-      "positive": 45,
-      "mention_other": 4,
-      "initiative": 2,
-      "negative": 4,
-      "mention_x": 5
+      "mention_other": 37,
+      "mention_x": 15,
+      "negative": 26,
+      "positive": 18,
+      "initiative": 6
     },
     "SPEAKER_1": {
-      "positive": 55,
-      "mention_x": 18,
-      "mention_other": 18,
-      "negative": 43,
-      "initiative": 11
-    },
-    "SPEAKER_0": {
-      "positive": 3,
-      "mention_other": 18,
-      "negative": 1,
+      "mention_other": 9,
+      "negative": 2,
+      "mention_x": 1,
       "initiative": 2
     },
-    "SPEAKER_3": {
-      "mention_other": 4,
-      "initiative": 2,
+    "SPEAKER_2": {
       "negative": 1,
-      "positive": 1
+      "mention_other": 2
     },
-    "SPEAKER_6": {
-      "positive": 3
+    "SPEAKER_0": {
+      "mention_other": 6,
+      "initiative": 1
+    },
+    "SPEAKER_7": {
+      "mention_other": 2,
+      "initiative": 1
     }
   }
 }
