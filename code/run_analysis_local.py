@@ -24,7 +24,7 @@ def parse_transcript(transcript_path: str) -> List[Dict[str, str]]:
     # Group 1: Name (inside brackets) or SPEAKER_XX
     # Group 2: Time
     speaker_time_pattern = re.compile(r'^(?:\[(.+?)\]|(SPEAKER_\d+))\s+(\d{2}:\d{2}:\d{2})')
-    time_only_pattern = re.compile(r'^(\d{2}:\d{2}:\d{2})$')
+    time_only_pattern = re.compile(r'^\s*(\d{2}:\d{2}:\d{2})\s*$')
 
     with open(transcript_path, "r", encoding="utf-8") as f:
         lines = f.readlines()
@@ -235,8 +235,14 @@ def run_case_local(case_name, transcript_path, performer_names, config_path, pro
         speaker_name = mapping_obj.get(sid, {}).get("name")
         speaker_conf = mapping_obj.get(sid, {}).get("confidence")
         
-        if not speaker_name: continue
-        if mode == "pair" and speaker_name not in target_set: continue
+        if not speaker_name:
+            # If explicit name in transcript like [성해은], use it
+            if d["speaker"] in performer_names:
+                speaker_name = d["speaker"]
+            else:
+                speaker_name = d["speaker"] # Fallback to ID
+        
+        # if mode == "pair" and speaker_name not in target_set: continue
         
         analysis = analyze_dialogue_with_ai(d["text"], speaker_name, analysis_config_text, performer_names, llm)
         if analysis:
