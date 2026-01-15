@@ -1,0 +1,43 @@
+{
+  "summary": {
+    "positive": 62,
+    "mention_x": 34,
+    "mention_other": 117,
+    "negative": 71,
+    "initiative": 23
+  },
+  "by_speaker": {
+    "SPEAKER_3": {
+      "positive": 44,
+      "mention_x": 18,
+      "mention_other": 61,
+      "negative": 42,
+      "initiative": 13
+    },
+    "SPEAKER_4": {
+      "mention_other": 37,
+      "mention_x": 15,
+      "negative": 26,
+      "positive": 18,
+      "initiative": 6
+    },
+    "SPEAKER_1": {
+      "mention_other": 9,
+      "negative": 2,
+      "mention_x": 1,
+      "initiative": 2
+    },
+    "SPEAKER_2": {
+      "negative": 1,
+      "mention_other": 2
+    },
+    "SPEAKER_0": {
+      "mention_other": 6,
+      "initiative": 1
+    },
+    "SPEAKER_7": {
+      "mention_other": 2,
+      "initiative": 1
+    }
+  }
+}
