@@ -20,9 +20,11 @@ def parse_transcript(transcript_path: str) -> List[Dict[str, str]]:
     dialogues = []
     current_speaker = "UNKNOWN"
     current_text = []
-    # Matches SPEAKER_1 00:00:00 or just SPEAKER_1
-    speaker_time_pattern = re.compile(r'^(SPEAKER_\d+)$')
-    time_only_pattern = re.compile(r'^(\d{2}:\d{2}:\d{2})$')
+    # Matches [Name] HH:MM:SS or SPEAKER_XX HH:MM:SS or just HH:MM:SS
+    # Group 1: Name (inside brackets) or SPEAKER_XX
+    # Group 2: Time
+    speaker_time_pattern = re.compile(r'^(?:\[(.+?)\]|(SPEAKER_\d+))\s+(\d{2}:\d{2}:\d{2})')
+    time_only_pattern = re.compile(r'^\s*(\d{2}:\d{2}:\d{2})\s*$')
 
     with open(transcript_path, "r", encoding="utf-8") as f:
         lines = f.readlines()
@@ -38,7 +40,9 @@ def parse_transcript(transcript_path: str) -> List[Dict[str, str]]:
             if current_text:
                 dialogues.append({"speaker": current_speaker, "text": " ".join(current_text)})
                 current_text = []
-            current_speaker = speaker_match.group(1).strip()
+            # Group 1 is Name or SPEAKER_XX
+            current_speaker = speaker_match.group(1) or speaker_match.group(2)
+            current_speaker = current_speaker.strip()
         elif time_match:
             if current_text:
                 dialogues.append({"speaker": current_speaker, "text": " ".join(current_text)})
@@ -231,8 +235,14 @@ def run_case_local(case_name, transcript_path, performer_names, config_path, pro
         speaker_name = mapping_obj.get(sid, {}).get("name")
         speaker_conf = mapping_obj.get(sid, {}).get("confidence")
         
-        if not speaker_name: continue
-        if mode == "pair" and speaker_name not in target_set: continue
+        if not speaker_name:
+            # If explicit name in transcript like [성해은], use it
+            if d["speaker"] in performer_names:
+                speaker_name = d["speaker"]
+            else:
+                speaker_name = d["speaker"] # Fallback to ID
+        
+        # if mode == "pair" and speaker_name not in target_set: continue
         
         analysis = analyze_dialogue_with_ai(d["text"], speaker_name, analysis_config_text, performer_names, llm)
         if analysis:
@@ -269,7 +279,7 @@ def main():
 
     run_case_local(
         case_name="환연2_해은규민",
-        transcript_path="transcript/환연2_해은규민.txt",
+        transcript_path="transcript/환연2_해은규민_수정중.txt",
         performer_names=["성해은", "정규민"],
         config_path="table/all_text_anlst.json",
         profile_path="table/character_profile.csv",
