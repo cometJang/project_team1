@@ -20,8 +20,10 @@ def parse_transcript(transcript_path: str) -> List[Dict[str, str]]:
     dialogues = []
     current_speaker = "UNKNOWN"
     current_text = []
-    # Matches SPEAKER_1 00:00:00 or just SPEAKER_1
-    speaker_time_pattern = re.compile(r'^(SPEAKER_\d+)$')
+    # Matches [Name] HH:MM:SS or SPEAKER_XX HH:MM:SS or just HH:MM:SS
+    # Group 1: Name (inside brackets) or SPEAKER_XX
+    # Group 2: Time
+    speaker_time_pattern = re.compile(r'^(?:\[(.+?)\]|(SPEAKER_\d+))\s+(\d{2}:\d{2}:\d{2})')
     time_only_pattern = re.compile(r'^(\d{2}:\d{2}:\d{2})$')
 
     with open(transcript_path, "r", encoding="utf-8") as f:
@@ -38,7 +40,9 @@ def parse_transcript(transcript_path: str) -> List[Dict[str, str]]:
             if current_text:
                 dialogues.append({"speaker": current_speaker, "text": " ".join(current_text)})
                 current_text = []
-            current_speaker = speaker_match.group(1).strip()
+            # Group 1 is Name or SPEAKER_XX
+            current_speaker = speaker_match.group(1) or speaker_match.group(2)
+            current_speaker = current_speaker.strip()
         elif time_match:
             if current_text:
                 dialogues.append({"speaker": current_speaker, "text": " ".join(current_text)})
@@ -269,7 +273,7 @@ def main():
 
     run_case_local(
         case_name="환연2_해은규민",
-        transcript_path="transcript/환연2_해은규민.txt",
+        transcript_path="transcript/환연2_해은규민_수정중.txt",
         performer_names=["성해은", "정규민"],
         config_path="table/all_text_anlst.json",
         profile_path="table/character_profile.csv",
