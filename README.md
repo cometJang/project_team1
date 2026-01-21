@@ -77,16 +77,7 @@ OTT 플랫폼의 경쟁이 심화되면서 콘텐츠 기획 단계에서 **데�
 
 ### Day 3 (1월 16일) - 분석, 시각화, 발표
 
-분석 결과 정리, 인사이트 도출, 시각화 및 발표 자료 작성을 완료했습니다. 시간 제약으로 인해 **YouTube Data API를 활용한 시청자 반응 분석은 미실시**했습니다.
-
-character_profile.csv 
-<img width="930" height="392" alt="image" src="https://github.com/user-attachments/assets/f5c4f6c7-12c0-481f-a73b-a972e51790af" />
-
-episode_event_log.csv
-<img width="930" height="693" alt="image" src="https://github.com/user-attachments/assets/4ddebf4f-2dc5-41fa-8aad-ed79b525d240" />
-
-message_log.csv
-<img width="930" height="812" alt="image" src="https://github.com/user-attachments/assets/c6e9bf11-1f73-4f1d-a90f-0041bb6fc722" />
+분석 결과 정리, 인사이트 도출, 시각화 및 발표 자료 작성을 완료했습니다. 시간 제약으로 인해 **YouTube Data API를 활용한 시청자 반응 분석은 미실시**했습니다.  
 
 
 --- 
